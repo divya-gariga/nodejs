@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const candidateRoutes = require('./routes/candidate');
-const courtsearchRoutes = require('./routes/courtsearch');
+const courtsearchRoutes = require('./routes/court-search');
+const adverseactionRoutes = require('./routes/adverse-action');
 
 const app = express();
 
@@ -17,8 +18,18 @@ app.use((req, res, next) => {
 });
 
 app.use('/candidates', candidateRoutes);
-app.use('/courtsearches', courtsearchRoutes);
 
+app.use('/court-searches', courtsearchRoutes);
+
+app.use('/adverse-actions', adverseactionRoutes);
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
+});
 
 mongoose
 .connect(

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", candidateController.getCandidates);
 
-router.post("/add-candidate", candidateController.createCandidate);
+router.post("/", candidateController.createCandidate);
 
 router.get("/reports/:candidateId", candidateController.getReportByCandId);
 
@@ -15,7 +15,5 @@ router.put("/reports/:candidateId", candidateController.updateReportByCandId);
 router.get("/:candidateId", candidateController.getCandidate);
 
 router.delete("/:candidateId", candidateController.deleteCandidate);
-
-
 
 module.exports = router;
