@@ -10,7 +10,7 @@ router.post("/", candidateController.createCandidate);
 
 router.get("/reports/:candidateId", candidateController.getReportByCandId);
 
-router.put("/reports/:candidateId", candidateController.updateReportByCandId);
+router.patch("/reports/:candidateId", candidateController.updateReportByCandId);
 
 router.get("/:candidateId", candidateController.getCandidate);
 

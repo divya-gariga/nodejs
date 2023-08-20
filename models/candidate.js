@@ -13,7 +13,7 @@ const candidateSchema = new Schema(
       required: true,
     },
     phone: {
-      type: String,
+      type: Number,
       required: true,
     },
     dob: {
@@ -22,6 +22,18 @@ const candidateSchema = new Schema(
     },
     location: {
       type: String,
+      required: true,
+    },
+    zipCode: {
+      type: Number,
+      required: true,
+    },
+    socialSecurity: {
+      type: Number,
+      required: true,
+    },
+    driverLicense: {
+      type: Number,
       required: true,
     },
     reports: reportSchema,

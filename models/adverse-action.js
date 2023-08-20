@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const adverseActionSchema = new Schema({
   status: {
     type: String,
-    enum: ["SCHEDULED", "CLEAR"],
+    enum: ["SCHEDULED", "CLEAR","CONSIDER"],
     default:"SCHEDULED",
     required: true,
   },

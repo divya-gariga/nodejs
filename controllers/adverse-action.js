@@ -8,13 +8,12 @@ exports.getAdverseActions = (req, res, next) => {
     .then((result) => {
       return res.status(200).json({
         message: "Fetched Adverse Actions successfully.",
-        adverseActions: result,
+        data: result,
       });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
+      if (!err.statusCode) err.statusCode = 500;
+      if (!err.message) err.message = "Fetching Adverse Actions Failed.";
       next(err);
     });
 };
@@ -46,6 +45,7 @@ exports.createAdverseAction = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Creating Adverse Actions Failed.";
       next(err);
     });
 };
