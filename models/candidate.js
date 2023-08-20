@@ -25,6 +25,11 @@ const candidateSchema = new Schema(
       required: true,
     },
     reports: reportSchema,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,

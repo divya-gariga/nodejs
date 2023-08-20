@@ -3,12 +3,15 @@ const Candidate = require("../models/candidate");
 
 exports.getAdverseActions = (req, res, next) => {
   AdverseAction.find()
-    .populate("candidate", "name")
+    .populate("candidate", "name user")
     .exec()
-    .then((result) => {
+    .then((adverseActions) => {
+      const userAdverseActions = adverseActions.filter((action) =>
+        action.candidate.user.equals(req.userId)
+      );
       return res.status(200).json({
         message: "Fetched Adverse Actions successfully.",
-        adverseActions: result,
+        data: userAdverseActions,
       });
     })
     .catch((err) => {
@@ -29,6 +32,11 @@ exports.createAdverseAction = (req, res, next) => {
       if (!res) {
         const error = new Error("Could not find candidate.");
         error.statusCode = 404;
+        throw error;
+      }
+      if (res.user.toString() !== req.userId) {
+        const error = new Error("Not authorized!");
+        error.statusCode = 403;
         throw error;
       }
       const adverseAction = new AdverseAction({

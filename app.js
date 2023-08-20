@@ -1,27 +1,32 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-const candidateRoutes = require('./routes/candidate');
-const courtsearchRoutes = require('./routes/court-search');
-const adverseactionRoutes = require('./routes/adverse-action');
+const authRoutes = require("./routes/auth");
+const candidateRoutes = require("./routes/candidate");
+const courtsearchRoutes = require("./routes/court-search");
+const adverseactionRoutes = require("./routes/adverse-action");
 
 const app = express();
 
 app.use(bodyParser.json()); // application/json
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
 });
+app.use("/auth", authRoutes);
 
-app.use('/candidates', candidateRoutes);
+app.use("/candidates", candidateRoutes);
 
-app.use('/court-searches', courtsearchRoutes);
+app.use("/court-searches", courtsearchRoutes);
 
-app.use('/adverse-actions', adverseactionRoutes);
+app.use("/adverse-actions", adverseactionRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -32,10 +37,10 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-.connect(
-    'mongodb+srv://divyag20:divyag20@cluster0.qbrwldo.mongodb.net/checkr?retryWrites=true'
-)
-.then(result => {
-  app.listen(8080);
-})
-.catch(err => console.log("error",err));
+  .connect(
+    "mongodb+srv://divyag20:divyag20@cluster0.qbrwldo.mongodb.net/checkr?retryWrites=true"
+  )
+  .then((result) => {
+    app.listen(8080);
+  })
+  .catch((err) => console.log("error", err));

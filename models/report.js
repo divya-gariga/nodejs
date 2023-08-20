@@ -19,12 +19,12 @@ const reportSchema = new Schema(
       default: "Employee Pro",
     },
     completedAt: {
-      type: Date
+      type: Date,
     },
     turnAroundTime: {
       type: String,
-      default:"NA"
-    }
+      default: "NA",
+    },
   },
   {
     timestamps: true,

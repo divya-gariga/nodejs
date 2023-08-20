@@ -1,13 +1,18 @@
 const express = require("express");
 
 const courtSearchController = require("../controllers/court-search");
+const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-router.get("/", courtSearchController.getCourtSearches);
+router.get("/", isAuth, courtSearchController.getCourtSearches);
 
-router.post("/", courtSearchController.createCourtSearches);
+router.post("/", isAuth, courtSearchController.createCourtSearches);
 
-router.get("/:candidateId", courtSearchController.getCourtSearchesByCandId);
+router.get(
+  "/:candidateId",
+  isAuth,
+  courtSearchController.getCourtSearchesByCandId
+);
 
 module.exports = router;

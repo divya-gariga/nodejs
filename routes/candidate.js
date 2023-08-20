@@ -1,19 +1,30 @@
 const express = require("express");
 
 const candidateController = require("../controllers/candidate");
+const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-router.get("/", candidateController.getCandidates);
+router.get("/", isAuth, candidateController.getCandidates);
 
-router.post("/", candidateController.createCandidate);
+router.get("/users/", isAuth, candidateController.getCandidatesByUser);
 
-router.get("/reports/:candidateId", candidateController.getReportByCandId);
+router.post("/", isAuth, candidateController.createCandidate);
 
-router.put("/reports/:candidateId", candidateController.updateReportByCandId);
+router.get(
+  "/reports/:candidateId",
+  isAuth,
+  candidateController.getReportByCandId
+);
 
-router.get("/:candidateId", candidateController.getCandidate);
+router.patch(
+  "/reports/:candidateId",
+  isAuth,
+  candidateController.updateReportByCandId
+);
 
-router.delete("/:candidateId", candidateController.deleteCandidate);
+router.get("/:candidateId", isAuth, candidateController.getCandidate);
+
+router.delete("/:candidateId", isAuth, candidateController.deleteCandidate);
 
 module.exports = router;

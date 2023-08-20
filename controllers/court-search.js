@@ -6,7 +6,7 @@ exports.getCourtSearches = (req, res, next) => {
     .then((result) => {
       return res.status(200).json({
         message: "Fetched court searches successfully.",
-        courtsearches: result,
+        data: result,
       });
     })
     .catch((err) => {
@@ -27,7 +27,12 @@ exports.createCourtSearches = (req, res, next) => {
       if (!candidate) {
         const error = new Error("Could not find candidate.");
         error.statusCode = 404;
-        throw error
+        throw error;
+      }
+      if (candidate.user.toString() !== req.userId) {
+        const error = new Error("Not authorized!");
+        error.statusCode = 403;
+        throw error;
       }
       const courtSearch = new CourtSearch({
         search,
@@ -57,7 +62,12 @@ exports.getCourtSearchesByCandId = async (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
-      return CourtSearch.find({'candidateId':candidateId})
+      if (candidate.user.toString() !== req.userId) {
+        const error = new Error("Not authorized!");
+        error.statusCode = 403;
+        throw error;
+      }
+      return CourtSearch.find({ candidateId: candidateId });
     })
     .then((result) => {
       return res.status(200).json({

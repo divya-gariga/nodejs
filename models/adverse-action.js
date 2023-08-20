@@ -6,7 +6,7 @@ const adverseActionSchema = new Schema({
   status: {
     type: String,
     enum: ["SCHEDULED", "CLEAR"],
-    default:"SCHEDULED",
+    default: "SCHEDULED",
     required: true,
   },
   prenoticeDate: {
