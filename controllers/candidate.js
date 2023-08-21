@@ -53,6 +53,7 @@ exports.getCandidatesByUser = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching Candidates Failed.";
       next(err);
     });
 };
@@ -79,6 +80,7 @@ exports.getCandidate = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching Candidates Failed.";
       next(err);
     });
 };
@@ -89,6 +91,9 @@ exports.createCandidate = (req, res, next) => {
   const phone = req.body.phone;
   const dob = req.body.dob;
   const location = req.body.location;
+  const zipCode = req.body.zipCode;
+  const socialSecurity = req.body.socialSecurity;
+  const driverLicense = req.body.driverLicense;
   const reports = req.body.reports || {};
   const candidate = new Candidate({
     name: name,
@@ -96,8 +101,11 @@ exports.createCandidate = (req, res, next) => {
     phone: phone,
     dob: dob,
     location: location,
-    reports: reports,
+    zipCode: zipCode,
+    socialSecurity: socialSecurity,
+    driverLicense: driverLicense,
     user: req.userId,
+    reports: reports,
   });
   candidate
     .save()
@@ -112,12 +120,13 @@ exports.createCandidate = (req, res, next) => {
       console.log("Created Candidate");
       return res
         .status(201)
-        .json({ message: "Candidate created successfully" });
+        .json({ message: "Candidate created successfully", data: result });
     })
     .catch((err) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Creating Candidates Failed.";
       next(err);
     });
 };
@@ -153,6 +162,7 @@ exports.deleteCandidate = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Deleting Candidates Failed.";
       next(err);
     });
 };
@@ -180,6 +190,7 @@ exports.getReportByCandId = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching Reports Failed.";
       next(err);
     });
 };
@@ -207,6 +218,7 @@ exports.updateReportByCandId = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Updating Reports Failed.";
       next(err);
     });
 };

@@ -13,7 +13,7 @@ const candidateSchema = new Schema(
       required: true,
     },
     phone: {
-      type: String,
+      type: Number,
       required: true,
     },
     dob: {
@@ -24,12 +24,19 @@ const candidateSchema = new Schema(
       type: String,
       required: true,
     },
-    reports: reportSchema,
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    zipCode: {
+      type: Number,
       required: true,
     },
+    socialSecurity: {
+      type: Number,
+      required: true,
+    },
+    driverLicense: {
+      type: Number,
+      required: true,
+    },
+    reports: reportSchema,
   },
   {
     timestamps: true,

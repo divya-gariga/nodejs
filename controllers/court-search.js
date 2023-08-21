@@ -13,6 +13,7 @@ exports.getCourtSearches = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching court searches Failed.";
       next(err);
     });
 };
@@ -49,6 +50,7 @@ exports.createCourtSearches = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Creating court searches Failed.";
       next(err);
     });
 };
@@ -72,13 +74,14 @@ exports.getCourtSearchesByCandId = async (req, res, next) => {
     .then((result) => {
       return res.status(200).json({
         message: "court searches fetched for given candidate id.",
-        courtSearches: result,
+        data: result,
       });
     })
     .catch((err) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching court searches Failed.";
       next(err);
     });
 };

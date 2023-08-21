@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const { mongoConnect } = require("./util/database");
 
 const authRoutes = require("./routes/auth");
 const candidateRoutes = require("./routes/candidate");
@@ -20,6 +20,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
 app.use("/auth", authRoutes);
 
 app.use("/candidates", candidateRoutes);
@@ -36,11 +37,4 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://divyag20:divyag20@cluster0.qbrwldo.mongodb.net/checkr?retryWrites=true"
-  )
-  .then((result) => {
-    app.listen(8080);
-  })
-  .catch((err) => console.log("error", err));
+mongoConnect(() => app.listen(8080));

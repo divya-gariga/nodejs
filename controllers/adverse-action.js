@@ -18,6 +18,7 @@ exports.getAdverseActions = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Fetching Adverse Actions Failed.";
       next(err);
     });
 };
@@ -54,6 +55,7 @@ exports.createAdverseAction = (req, res, next) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
+      if (!err.message) err.message = "Creating Adverse Actions Failed.";
       next(err);
     });
 };

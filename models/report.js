@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema(
@@ -18,13 +17,10 @@ const reportSchema = new Schema(
       type: String,
       default: "Employee Pro",
     },
-    completedAt: {
-      type: Date,
-    },
     turnAroundTime: {
       type: String,
-      default: "NA",
-    },
+      default:"NA"
+    }
   },
   {
     timestamps: true,
