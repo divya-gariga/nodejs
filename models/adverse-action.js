@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const adverseActionStatusEnum = ["SCHEDULED", "CLEAR", "CONSIDER"];
+
 const adverseActionSchema = new Schema({
   status: {
     type: String,
-    enum: ["SCHEDULED", "CLEAR","CONSIDER"],
+    enum: adverseActionStatusEnum,
     default:"SCHEDULED",
     required: true,
   },
@@ -26,4 +28,9 @@ const adverseActionSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("AdverseAction", adverseActionSchema);
+const AdverseAction= mongoose.model("AdverseAction", adverseActionSchema);
+
+module.exports = {
+  AdverseAction,
+  adverseActionStatusEnum
+}

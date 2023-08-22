@@ -1,4 +1,6 @@
-const AdverseAction = require("../models/adverse-action");
+const { validationResult } = require("express-validator");
+
+const { AdverseAction } = require("../models/adverse-action");
 const Candidate = require("../models/candidate");
 
 exports.getAdverseActions = (req, res, next) => {
@@ -24,6 +26,13 @@ exports.getAdverseActions = (req, res, next) => {
 };
 
 exports.createAdverseAction = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed.");
+    error.statusCode = 422;
+    error.data = errors.array().map((error) => error.msg);
+    throw error;
+  }
   const status = req.body.status;
   const prenoticeDate = req.body.prenoticeDate;
   const postnoticeDate = req.body.postnoticeDate;
