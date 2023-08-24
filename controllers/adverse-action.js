@@ -1,24 +1,38 @@
-const AdverseAction = require("../models/adverse-action");
+const { validationResult } = require("express-validator");
+
+const { AdverseAction } = require("../models/adverse-action");
 const Candidate = require("../models/candidate");
 
 exports.getAdverseActions = (req, res, next) => {
   AdverseAction.find()
-    .populate("candidate", "name")
+    .populate("candidate", "name user")
     .exec()
-    .then((result) => {
+    .then((adverseActions) => {
+      const userAdverseActions = adverseActions.filter((action) =>
+        action.candidate.user.equals(req.userId)
+      );
       return res.status(200).json({
         message: "Fetched Adverse Actions successfully.",
-        data: result,
+        data: userAdverseActions,
       });
     })
     .catch((err) => {
-      if (!err.statusCode) err.statusCode = 500;
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
       if (!err.message) err.message = "Fetching Adverse Actions Failed.";
       next(err);
     });
 };
 
 exports.createAdverseAction = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed.");
+    error.statusCode = 422;
+    error.data = errors.array().map((error) => error.msg);
+    throw error;
+  }
   const status = req.body.status;
   const prenoticeDate = req.body.prenoticeDate;
   const postnoticeDate = req.body.postnoticeDate;
@@ -28,6 +42,11 @@ exports.createAdverseAction = (req, res, next) => {
       if (!res) {
         const error = new Error("Could not find candidate.");
         error.statusCode = 404;
+        throw error;
+      }
+      if (res.user.toString() !== req.userId) {
+        const error = new Error("Not authorized!");
+        error.statusCode = 403;
         throw error;
       }
       const adverseAction = new AdverseAction({

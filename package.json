@@ -14,8 +14,11 @@
   "author": "Divya",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.2"
   },
   "devDependencies": {

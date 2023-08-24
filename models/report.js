@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const reportStatusEnum = ["CLEAR", "CONSIDER"];
+const reportAdjudicationEnum = ["", "ENGAGED", "ADVERSE ACTION"];
+
 const reportSchema = new Schema(
   {
     status: {
       type: String,
-      enum: ["CLEAR", "CONSIDER"],
+      enum: reportStatusEnum,
       default: "CLEAR",
     },
     adjudication: {
       type: String,
-      enum: ["", "ENGAGED", "ADVERSE ACTION"],
+      enum: reportAdjudicationEnum,
       default: "",
     },
     package: {
@@ -28,5 +31,10 @@ const reportSchema = new Schema(
 );
 
 const reportModel = mongoose.model("Report", reportSchema);
-exports.reportSchema = reportSchema;
-exports.reportModel = reportModel;
+
+module.exports = {
+  reportSchema,
+  reportModel,
+  reportStatusEnum,
+  reportAdjudicationEnum
+}

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const courtSearchStatusEnum = ["CLEAR", "CONSIDER"];
+
 const courtSearchSchema = new Schema({
   search: {
     type: String,
@@ -9,7 +11,7 @@ const courtSearchSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["CLEAR", "CONSIDER"],
+    enum: courtSearchStatusEnum,
     required: true,
   },
   date: {
@@ -23,4 +25,9 @@ const courtSearchSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("CourtSearch", courtSearchSchema);
+const CourtSearch = mongoose.model("CourtSearch", courtSearchSchema)
+
+module.exports = {
+  CourtSearch,
+  courtSearchStatusEnum
+}
