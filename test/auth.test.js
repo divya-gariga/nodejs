@@ -10,61 +10,62 @@ const { signup, login } = require("../controllers/auth");
 
 describe("Auth Controller", () => {
   describe("signup", () => {
-      it("signup - email already exits", async function () {
-          sandbox.stub(validationResult, "withDefaults").returns({
-              isEmpty: sandbox.stub().returns(true),
-          });
-          sandbox.stub(User, "findOne").returns(
-              new User({
-                  _id: "1",
-                  email: "test@gmail.com",
-              })
-          );
-          const req = {
-              body: {
-                  email: "test@gmail.com",
-                  password: "test@123",
-              },
-          };
-          const res = {
-              status: sandbox.stub().returnsThis(),
-              json: sandbox.spy(),
-          };
-          const next = sinon.spy();
-          await signup(req, res, next);
-          expect(next.calledOnce).to.be.true;
-          expect(next.args[0][0].statusCode).to.equal(422);
-          expect(next.args[0][0].message).to.equal("Validation failed");
+    it("signup - email already exits", async function () {
+      sandbox.stub(validationResult, "withDefaults").returns({
+        isEmpty: sandbox.stub().returns(true),
       });
-      it("signup - successful", async function () {
-          sandbox.stub(validationResult, "withDefaults").returns({
-              isEmpty: sandbox.stub().returns(true),
-          });
-          sandbox.stub(User, "findOne").returns(null);
-          sandbox.stub(User.prototype, "save").returns(
-              new User({
-                  _id: "1",
-                  email: "test@gmail.com",
-                  password: "test@123",
-              })
-          );
-          const req = {
-              body: {
-                  email: "test@gmail.com",
-                  password: "test@123",
-              },
-          };
-          const res = {
-              status: sandbox.stub().returnsThis(),
-              json: sandbox.spy(),
-          };
-          sandbox.stub(bcrypt, "hash").returns("test@123");
-          const next = sinon.spy();
-          await signup(req, res, next);
-          expect(res.status.args[0][0]).to.equal(201);
-          expect(res.json.args[0][0].message).to.equal("User created!");
+      sandbox.stub(User, "findOne").returns(
+        new User({
+          _id: "1",
+          email: "test@gmail.com",
+          password: "test@123",
+        })
+      );
+      const req = {
+        body: {
+          email: "test@gmail.com",
+          password: "test@123",
+        },
+      };
+      const res = {
+        status: sandbox.stub().returnsThis(),
+        json: sandbox.spy(),
+      };
+      const next = sinon.spy();
+      await signup(req, res, next);
+      expect(next.calledOnce).to.be.true;
+      expect(next.args[0][0].statusCode).to.equal(422);
+      expect(next.args[0][0].message).to.equal("Validation failed");
+    });
+    it("signup - successful", async function () {
+      sandbox.stub(validationResult, "withDefaults").returns({
+        isEmpty: sandbox.stub().returns(true),
       });
-  })
+      sandbox.stub(User, "findOne").returns(null);
+      sandbox.stub(User.prototype, "save").returns(
+        new User({
+          _id: "1",
+          email: "test@gmail.com",
+          password: "test@123",
+        })
+      );
+      const req = {
+        body: {
+          email: "test@gmail.com",
+          password: "test@123",
+        },
+      };
+      const res = {
+        status: sandbox.stub().returnsThis(),
+        json: sandbox.spy(),
+      };
+      sandbox.stub(bcrypt, "hash").returns("test@123");
+      const next = sinon.spy();
+      await signup(req, res, next);
+      expect(res.status.args[0][0]).to.equal(201);
+      expect(res.json.args[0][0].message).to.equal("User created!");
+    });
+  });
   describe("login", () => {
     it("login successful", async function () {
       sandbox.stub(validationResult, "withDefaults").returns({

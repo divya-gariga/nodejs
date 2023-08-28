@@ -48,8 +48,16 @@ describe("court-searches Controller", () => {
       });
       sandbox.stub(Candidate, "findOne").returns(
         new Candidate({
-          _id: "1",
-          user: "64e52362e9dbf9c055ab5cba",
+            _id: "1",
+            name: "@divya",
+            email: "adfa@gmail.com",
+            phone: 1234567890,
+            dob: "1990-01-09T00:00:00.000Z",
+            location: "Some City",
+            zipCode: 12345,
+            socialSecurity: 123456789,
+            driverLicense: 1234567890678678,
+            user: "64e52362e9dbf9c055ab5cba",
         })
       );
       sandbox.stub(CourtSearch.prototype, "save");

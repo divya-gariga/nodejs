@@ -78,8 +78,16 @@ describe("candidate Controller", () => {
       isEmpty: sandbox.stub().returns(true),
     });
     const candidate = new Candidate({
-      _id: "1",
-      user: "64e52362e9dbf9c055ab5cba",
+        _id: "1",
+        name: "@divya",
+        email: "adfa@gmail.com",
+        phone: 1234567890,
+        dob: "1990-01-09T00:00:00.000Z",
+        location: "Some City",
+        zipCode: 12345,
+        socialSecurity: 123456789,
+        driverLicense: 1234567890678678,
+        user: "64e52362e9dbf9c055ab5cba",
     });
     const user = new User({
       _id: "1",
@@ -124,6 +132,14 @@ describe("candidate Controller", () => {
     });
     const candidateMockData = new Candidate({
       _id: "1",
+      name: "@divya",
+      email: "adfa@gmail.com",
+      phone: 1234567890,
+      dob: "1990-01-09T00:00:00.000Z",
+      location: "Some City",
+      zipCode: 12345,
+      socialSecurity: 123456789,
+      driverLicense: 1234567890678678,
       user: "64e52362e9dbf9c055ab5cba",
     });
     const userMockData = new User({

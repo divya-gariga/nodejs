@@ -10,16 +10,14 @@ const {
 } = require("../controllers/adverse-action");
 
 describe("Adverse Actions Controller", () => {
-  it("getAdverseActions with succesfull status", async function () {
+  it("getAdverseActions with succesful status", async function () {
     const req = {
       userId: "64e52362e9dbf9c055ab5cba",
     };
-
     const res = {
       status: sandbox.stub().returnsThis(),
       json: sandbox.spy(),
     };
-
     const adverseActionsMock = [
       {
         _id: "1",
@@ -45,11 +43,10 @@ describe("Adverse Actions Controller", () => {
       })
     ).to.be.true;
   });
-  it("getAdverseActions with unsuccesfull status", async function () {
+  it("getAdverseActions with unsuccesful status", async function () {
     const req = {
       userId: "64e52362e9dbf9c055ab5cba",
     };
-
     const res = {
       status: sandbox.stub().returnsThis(),
       json: sandbox.spy(),
@@ -74,6 +71,14 @@ describe("Adverse Actions Controller", () => {
     sandbox.stub(Candidate, "findById").returns(
       new Candidate({
         _id: "1",
+        name: "divya",
+        email: "cand@gmail.com",
+        phone: 1234567890,
+        dob: "1990-01-09T00:00:00.000Z",
+        location: "Some City",
+        zipCode: 12345,
+        socialSecurity: 123456789,
+        driverLicense: 1234567890678678,
         user: "64e52362e9dbf9c055ab5cba",
       })
     );
@@ -103,6 +108,14 @@ describe("Adverse Actions Controller", () => {
     sandbox.stub(Candidate, "findById").returns(
       new Candidate({
         _id: "1",
+        name: "divya",
+        email: "cand@gmail.com",
+        phone: 1234567890,
+        dob: "1990-01-09T00:00:00.000Z",
+        location: "Some City",
+        zipCode: 12345,
+        socialSecurity: 123456789,
+        driverLicense: 1234567890678678,
         user: "64e52362e9dbf9c055ab5cba",
       })
     );
