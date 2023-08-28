@@ -14,8 +14,6 @@ const {
 
 const router = express.Router();
 
-router.get("/", isAuth, candidateController.getCandidates);
-
 router.get("/users/", isAuth, candidateController.getCandidatesByUser);
 
 router.post(
@@ -54,7 +52,7 @@ router.patch(
 router.get(
   "/:candidateId",
   isAuth,
-  validateObjectId('candidateId'),
+  // validateObjectId('candidateId'),
   candidateController.getCandidate
 );
 
