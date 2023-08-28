@@ -52,7 +52,7 @@ router.patch(
 router.get(
   "/:candidateId",
   isAuth,
-  // validateObjectId('candidateId'),
+  validateObjectId('candidateId'),
   candidateController.getCandidate
 );
 
